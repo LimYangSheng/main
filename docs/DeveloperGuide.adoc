@@ -396,6 +396,7 @@ public class RestoreBackupCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 }
+----
 
 [Note]
 Once the data has been restored, the original data will be lost and is no longer retrievable.
