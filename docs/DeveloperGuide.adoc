@@ -354,7 +354,7 @@ The following shows a sequence diagram of how the `BackupCommand` is carried out
 
 image::BackupCommandSequenceDiagram.png[width="800"]
 
-[Note]
+[NOTE]
 `RestoreBackupCommand` shares a similar sequence diagram in terms of logic.
 
 The `BackupCommand` is executed when user input "backup" or "b". The data that is in `model` or the active address book is first passed as a parameter to `BackupDataEvent`. The event will be handled by `StorageManager` and is saved into the default file path "data/addressbook-backup.xml".
@@ -398,9 +398,9 @@ public class RestoreBackupCommand extends Command {
 }
 ----
 
-[Note]
+[NOTE]
 Once the data has been restored, the original data will be lost and is no longer retrievable.
-[Note]
+[NOTE]
 A backup of address book is always created when the Address Book starts. This means that `RestoreBackupCommand` will not encounter an `IOException` where the file does not exist.
 
 ==== Design Considerations
