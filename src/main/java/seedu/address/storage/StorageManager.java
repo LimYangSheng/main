@@ -16,8 +16,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-
 /**
  * Manages storage of AddressBook data in local storage.
  */
@@ -123,11 +121,11 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleRestoreBackupDataEvent (RestoreBackupDataEvent event) throws DataConversionException, IOException {
+    public void handleRestoreBackupDataEvent(RestoreBackupDataEvent event) throws DataConversionException, IOException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         ReadOnlyAddressBook backupAddressBookData;
-        String BackupFilePath = createBackupAddressBookFilePath(addressBookStorage.getAddressBookFilePath());
-        backupAddressBookData = readAddressBook(BackupFilePath).get();
+        String backupFilePath = createBackupAddressBookFilePath(addressBookStorage.getAddressBookFilePath());
+        backupAddressBookData = readAddressBook(backupFilePath).get();
         event.updateAddressBookData(backupAddressBookData);
     }
 

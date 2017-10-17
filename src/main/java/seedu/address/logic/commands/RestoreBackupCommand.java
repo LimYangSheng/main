@@ -8,7 +8,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * Replace the current address book with data from backup address book.
  */
-public class RestoreBackupCommand extends Command{
+public class RestoreBackupCommand extends Command {
     public static final String COMMAND_WORD = "restore";
     public static final String COMMAND_ALIAS = "rb";
     public static final String MESSAGE_SUCCESS = "Data has been restored";
