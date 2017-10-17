@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= AddressBookX - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,7 +10,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103AUG2017-W13-B3/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -731,7 +731,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |use shorter aliases for commands|enter commands quickly and not have to type in the full command
 
-|`* * *` |user |find people by their tags|view people under certain tags
+|`* * *` |user |find people by their tags|locate a specific group of persons
 
 |`* * *` |user |have a responsive inbuilt browser with similar response times to external browsers|use the inbuilt browser smoothly
 
@@ -751,7 +751,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
-|`* *` |user |have Google Contacts integration| view and modify my contacts on other platforms than my computer
+|`* *` |user |have Google Contacts integration link:#google-contacts-api[Google Contacts API]| view and modify my contacts on other platforms than my computer
 
 |`* *` |user |have a reminder system tag to names| remember my appointments with other people
 
@@ -759,9 +759,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |find a subset of contacts using specified parameters|filter through my contacts
 
-|`* *` |user |click on the address to be shown its Google Maps result|easily navigate to my contact's location
+|`* *` |user |locate a person's address on Google Maps|easily navigate to my contact's location
 
-|`* *` |user |resize the dimensions of the command and output bar|customise the application to my desired layout
+|`* *` |user |resize the dimensions of the command and output bar|customise the application to the desired layout
 
 |`* *` |user |upload pictures of my contacts|identify my contacts with similar names
 
@@ -783,7 +783,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |send an email via the inbuilt browser by clicking on a contact's email|easily and quickly send an email to an existing contact
 
-|`* *` |user |have a Notes section to add notes that can be tagged and shared with people|jot down certain events and details
+|`* *` |user |have a Notes section to add notes that attaches to a person|jot down certain events and details
 
 |`* *` |user who is privacy focused |encrypt my contacts|hide and secure my contacts from others
 
@@ -837,14 +837,218 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Delete tag
+
+*MSS*
+
+1.  User requests to delete a specific tag by name
+2.  AddressBook deletes the tag from every person in the address book
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The tag does not exist.
++
+[none]
+** 1a1. AddressBook shows an error message.
+Use case ends.
+
+* 1b. The tag is not a valid tag.
++
+[none]
+** 1b1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit contact details
+
+*MSS*
+
+1.  User requests to edit contact
+2.  AddressBook shows a list of persons
+3.  User requests to edit a specific index in the list with required tags on new information
+4.  AddressBook confirms that user wishes to change data
+5.  User confirms the change
+6.  AddressBook changes the information in the field
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The user does not provide fields for new data.
++
+[none]
+** 3b1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3c. The user does not change any field.
++
+[none]
+** 3c1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. User inputs no.
++
+Use case ends.
+
+* 5b. User inputs something other than yes or no.
++
+[none]
+** 5b1. AddressBook shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Backup data
+
+*MSS*
+
+1.  User requests to backup data
+2.  AddressBook backs up the data to the hard drive
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. AddressBook fails to save the data.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Restore backup
+
+*MSS*
+
+1.  User requests to restore backup
+2.  AddressBook shows a list of backups available
+3.  User selects index of specific backup in the list
+4.  AddressBook confirms that user wishes to restore backup and will lose current data
+5.  User confirms the change
+6.  AddressBook restores to backup specified by user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. User inputs no.
++
+Use case ends.
+
+* 5b. User inputs something other than yes or no.
++
+[none]
+** 5b1. AddressBook shows an error message.
++
+Use case resumes at step 4.
+
+
+[discrete]
+=== Use case: upload pictures
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to upload a picture in a directory for a specific person in the list
+4.  AddressBook saves the picture for the person in the address book
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The specified picture is invalid
++
+[none]
+** 3b1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: add remark to a person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to add remark to a person in the list
+4.  AddressBook adds remark to the person in the address book
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
 {More to be added}
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to respond to a command within 500ms.
+.  Data should only be accessible to the user himself.
+.  Should be compatible with earlier versions.
+.  Should be able to handle all possible exceptions.
+.  Should adhere to the Java coding standard.
 
 {More to be added}
 
@@ -865,6 +1069,12 @@ Private contact detail
 A contact detail that is not meant to be shared with others
 ....
 
+[[google-contacts-api]]
+Google Contacts API
+
+....
+An API provided by Google for client applications to perform basic CRUD functions on a user's contacts.
+....
 [appendix]
 == Product Survey
 
