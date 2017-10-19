@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -9,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.commons.events.ui.PermissionToProceedEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -146,6 +148,56 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * Handles the event when Address Book requires user's confirmation to proceed with a command.
+     */
+    @Subscribe
+    @FXML
+    public void handlePermissionToProceedEvent (PermissionToProceedEvent event) {
+
+        commandTextField.setText("");
+        logger.info(event.getPermissionRequestDisplayText());
+
+
+//        try {
+//            commandTextField.setText("");
+//            logger.info(event.getPermissionRequestDisplayText());
+//            CommandResult commandResult = logic.execute(commandTextField.getText());
+//            // process result of the command
+//            commandTextField.setText("");
+//            logger.info("Result: " + commandResult.feedbackToUser);
+//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+//
+//        } catch (CommandException | ParseException e) {
+//            // handle command failure
+//            setStyleToIndicateCommandFailure();
+//            logger.info("Invalid command: " + commandTextField.getText());
+//            raise(new NewResultAvailableEvent(e.getMessage()));
+//        }
+    }
+
+    @FXML
+    private void handleIncomingPermission() {
+        String commandText = commandTextField.getText();
+        CommandResult commandResult = new CommandResult(commandText);
+
+        commandTextField.setText("");
+        if (commandText == "yes" || commandText == "y"){
+            //event.setPermission(true);
+//            logger.info("Result: " + commandResult.feedbackToUser);
+//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        }
+        else if (commandText == "no" || commandText == "n") {
+            //event.setPermission(false);
+//            logger.info("Result: " + commandResult.feedbackToUser);
+//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        }
+        else {
+            setStyleToIndicateCommandFailure();
+            logger.info("Invalid command: " + commandTextField.getText());
+        }
     }
 
 }
