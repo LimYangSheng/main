@@ -156,30 +156,9 @@ public class CommandBox extends UiPart<Region> {
     @Subscribe
     @FXML
     public void handlePermissionToProceedEvent (PermissionToProceedEvent event) {
-
         commandTextField.setText("");
         logger.info(event.getPermissionRequestDisplayText());
 
-
-//        try {
-//            commandTextField.setText("");
-//            logger.info(event.getPermissionRequestDisplayText());
-//            CommandResult commandResult = logic.execute(commandTextField.getText());
-//            // process result of the command
-//            commandTextField.setText("");
-//            logger.info("Result: " + commandResult.feedbackToUser);
-//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-//
-//        } catch (CommandException | ParseException e) {
-//            // handle command failure
-//            setStyleToIndicateCommandFailure();
-//            logger.info("Invalid command: " + commandTextField.getText());
-//            raise(new NewResultAvailableEvent(e.getMessage()));
-//        }
-    }
-
-    @FXML
-    private void handleIncomingPermission() {
         String commandText = commandTextField.getText();
         CommandResult commandResult = new CommandResult(commandText);
 
@@ -198,6 +177,22 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
         }
-    }
 
+//
+// try {
+//            commandTextField.setText("");
+//            logger.info(event.getPermissionRequestDisplayText());
+//            CommandResult commandResult = logic.execute(commandTextField.getText());
+//            // process result of the command
+//            commandTextField.setText("");
+//            logger.info("Result: " + commandResult.feedbackToUser);
+//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+//
+//        } catch (CommandException | ParseException e) {
+//            // handle command failure
+//            setStyleToIndicateCommandFailure();
+//            logger.info("Invalid command: " + commandTextField.getText());
+//            raise(new NewResultAvailableEvent(e.getMessage()));
+//        }
+    }
 }
