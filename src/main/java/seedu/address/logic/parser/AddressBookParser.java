@@ -37,6 +37,7 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_PERMISSION_FORMAT = Pattern.compile("(?<permission>\\S+)");
 
     /**
      * Parses user input into command for execution.
@@ -114,6 +115,22 @@ public class AddressBookParser {
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    public boolean parsePermission(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_PERMISSION_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        final String permission = matcher.group("permission");
+        switch(permission) {
+            case "yes": case "y":
+                return true;
+            case "no": case "n":
+                return false;
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

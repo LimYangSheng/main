@@ -10,7 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.commons.events.ui.PermissionToProceedEvent;
+import seedu.address.commons.events.ui.RequestingUserPermissionEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -28,6 +28,7 @@ public class CommandBox extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ListElementPointer historySnapshot;
+    private boolean addressBookReplyFlag;
 
     @FXML
     private TextField commandTextField;
@@ -38,6 +39,8 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
+        registerAsAnEventHandler(this);
+        addressBookReplyFlag = false;
     }
 
     /**
@@ -102,6 +105,35 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandInputChanged() {
+        if(addressBookReplyFlag){
+            handlePermissionCommandInputChanged();
+            addressBookReplyFlag = false;
+        }
+        else {
+            handleCommonCommandInputChanged();
+        }
+    }
+
+    private void handlePermissionCommandInputChanged() {
+        try {
+            CommandResult commandResult = logic.executeAfterUserPermission(commandTextField.getText());
+            initHistory();
+            historySnapshot.next();
+            // process result of the command
+            commandTextField.setText("");
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+
+        } catch (CommandException | ParseException e) {
+            initHistory();
+            // handle command failure
+            setStyleToIndicateCommandFailure();
+            logger.info("Invalid command: " + commandTextField.getText());
+            raise(new NewResultAvailableEvent(e.getMessage()));
+        }
+    }
+
+    private void handleCommonCommandInputChanged() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
             initHistory();
@@ -154,45 +186,8 @@ public class CommandBox extends UiPart<Region> {
      * Handles the event when Address Book requires user's confirmation to proceed with a command.
      */
     @Subscribe
-    @FXML
-    public void handlePermissionToProceedEvent (PermissionToProceedEvent event) {
-        commandTextField.setText("");
-        logger.info(event.getPermissionRequestDisplayText());
-
-        String commandText = commandTextField.getText();
-        CommandResult commandResult = new CommandResult(commandText);
-
-        commandTextField.setText("");
-        if (commandText == "yes" || commandText == "y"){
-            //event.setPermission(true);
-//            logger.info("Result: " + commandResult.feedbackToUser);
-//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-        }
-        else if (commandText == "no" || commandText == "n") {
-            //event.setPermission(false);
-//            logger.info("Result: " + commandResult.feedbackToUser);
-//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-        }
-        else {
-            setStyleToIndicateCommandFailure();
-            logger.info("Invalid command: " + commandTextField.getText());
-        }
-
-//
-// try {
-//            commandTextField.setText("");
-//            logger.info(event.getPermissionRequestDisplayText());
-//            CommandResult commandResult = logic.execute(commandTextField.getText());
-//            // process result of the command
-//            commandTextField.setText("");
-//            logger.info("Result: " + commandResult.feedbackToUser);
-//            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-//
-//        } catch (CommandException | ParseException e) {
-//            // handle command failure
-//            setStyleToIndicateCommandFailure();
-//            logger.info("Invalid command: " + commandTextField.getText());
-//            raise(new NewResultAvailableEvent(e.getMessage()));
-//        }
+    public void handleRequestingUserPermissionEvent(RequestingUserPermissionEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        addressBookReplyFlag = true;
     }
 }
