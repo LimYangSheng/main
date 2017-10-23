@@ -21,7 +21,7 @@ public class RestoreBackupCommand extends PermissionCommand {
 
     @Override
     public CommandResult execute() throws CommandException {
-        if(backupFilePresence()) {
+        if(backupFilePresent()) {
             EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
             return new CommandResult(String.format(MESSAGE_WARNING));
         }
@@ -47,7 +47,7 @@ public class RestoreBackupCommand extends PermissionCommand {
     /**
      * Checks if there is a backup file.
      */
-    private boolean backupFilePresence() {
+    private boolean backupFilePresent() {
         BackupFilePresentEvent event = new BackupFilePresentEvent();
         EventsCenter.getInstance().post(event);
         return (event.getBackupFilePresenceStatus());

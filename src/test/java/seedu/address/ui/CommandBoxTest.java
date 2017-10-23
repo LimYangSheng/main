@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.RequestingUserPermissionEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ListCommand;
@@ -67,14 +69,17 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void commandBox_successfulCommand_forHandlePermissionCommandInputChanged_withValidPermission() {
+    public void commandBox_successfulCommand_forHandlePermissionCommandInputChanged() {
         assertBehaviorForSuccessfulPermissionCommand();
+        EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
         assertBehaviorForPermissionInput();
+        assertBehaviorForFailedCommand();
     }
 
     @Test
-    public void commandBox_successfulCommand_forHandlePermissionCommandInputChanged_withErrorPermission() {
+    public void commandBox_unsuccessfulCommand_forHandlePermissionCommandInputChanged_ParseException() {
         assertBehaviorForSuccessfulPermissionCommand();
+        EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
         assertBehaviorForFailedCommand();
     }
 
@@ -180,8 +185,8 @@ public class CommandBoxTest extends GuiUnitTest {
 
     /**
      * Runs a valid user input following a Permission command, then verifies that <br>
-     *     - the text is cleared <br>
-     *     - the command box's style is the same as {@code defaultStyleOfCommandBox}.
+     *      - the text is cleared <br>
+     *      - the command box's style is the same as {@code defaultStyleOfCommandBox}.
      */
     private void assertBehaviorForPermissionInput() {
         commandBoxHandle.run(COMMAND_WITH_VALID_USER_PERMISSION);

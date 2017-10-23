@@ -57,7 +57,7 @@ public class LogicManagerTest {
     @Test
     public void executeAfterUserPermission_validCommand_success() {
         String permission = "no";
-        assertCommandSuccess(RestoreBackupCommand.COMMAND_WORD, RestoreBackupCommand.MESSAGE_WARNING, model, "common");
+        assertCommandSuccess(RestoreBackupCommand.COMMAND_WORD, RestoreBackupCommand.MESSAGE_NO_BACKUP_FILE, model, "common");
         assertCommandSuccess(permission, RestoreBackupCommand.MESSAGE_FAILURE, model, "permission");
         assertHistoryCorrect(permission, RestoreBackupCommand.COMMAND_WORD);
     }
