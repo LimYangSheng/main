@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.storage.BackupFilePresentEvent;
 import seedu.address.commons.events.storage.RestoreBackupDataEvent;
 import seedu.address.commons.events.ui.RequestingUserPermissionEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,11 +17,17 @@ public class RestoreBackupCommand extends PermissionCommand {
     public static final String MESSAGE_FAILURE = "Data has not been restored";
     public static final String MESSAGE_WARNING =
             "Restoring backup will result in the lost of current data. Do you still want to proceed? y/n";
+    public static final String MESSAGE_NO_BACKUP_FILE = "Unable to execute restore as there is no backup file available";
 
     @Override
     public CommandResult execute() throws CommandException {
-        EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
-        return new CommandResult(String.format(MESSAGE_WARNING));
+        if(backupFilePresence()) {
+            EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
+            return new CommandResult(String.format(MESSAGE_WARNING));
+        }
+        else {
+            return new CommandResult(String.format(MESSAGE_NO_BACKUP_FILE));
+        }
     }
 
     @Override
@@ -35,5 +42,14 @@ public class RestoreBackupCommand extends PermissionCommand {
         else {
             return new CommandResult(String.format(MESSAGE_FAILURE));
         }
+    }
+
+    /**
+     * Checks if there is a backup file.
+     */
+    private boolean backupFilePresence() {
+        BackupFilePresentEvent event = new BackupFilePresentEvent();
+        EventsCenter.getInstance().post(event);
+        return (event.getBackupFilePresenceStatus());
     }
 }

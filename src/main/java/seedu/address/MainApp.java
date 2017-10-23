@@ -67,7 +67,6 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-        storage.backupAddressBook(model.getAddressBook());
 
         logic = new LogicManager(model);
 
@@ -190,6 +189,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
+        storage.backupAddressBook(model.getAddressBook());
         logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
