@@ -9,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.commons.events.ui.RequestingUserPermissionEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.AddressBook;
@@ -20,13 +21,15 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class RestoreBackupCommandTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private Model model;
-    private UserPrefs userPrefs;
     private StorageManager storageManager;
     private AddressBookStorage addressBookStorage;
     private String filePath;
@@ -50,9 +53,27 @@ public class RestoreBackupCommandTest {
 
     @Test
     public void execute_restoreBackup_successful() throws Exception {
+        CommandResult result = restoreBackupCommand.execute();
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof RequestingUserPermissionEvent);
+        assertEquals(result.feedbackToUser, restoreBackupCommand.MESSAGE_WARNING);
+    }
+
+    @Test
+    public void executeAfterUserPermission_restoreBackup_successful() throws Exception {
         assertTrue(model.getFilteredPersonList().size() == 0);
         ReadOnlyAddressBook expectedAddressBook = getTypicalAddressBook();
-        restoreBackupCommand.execute();
+        CommandResult result = restoreBackupCommand.executeAfterUserPermission(true);
+        assertEquals(result.feedbackToUser, restoreBackupCommand.MESSAGE_SUCCESS);
+        ReadOnlyAddressBook retrieved = model.getAddressBook();
+        assertEquals(expectedAddressBook, retrieved);
+    }
+
+    @Test
+    public void executeAfterUserPermission_restoreBackup_unsuccessful() throws Exception {
+        assertTrue(model.getFilteredPersonList().size() == 0);
+        ReadOnlyAddressBook expectedAddressBook = new AddressBook();
+        CommandResult result = restoreBackupCommand.executeAfterUserPermission(false);
+        assertEquals(result.feedbackToUser, restoreBackupCommand.MESSAGE_FAILURE);
         ReadOnlyAddressBook retrieved = model.getAddressBook();
         assertEquals(expectedAddressBook, retrieved);
     }
