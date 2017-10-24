@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Requests to check if there is a backup file in the default path.
  */
-public class BackupFilePresentEvent extends BaseEvent{
+public class BackupFilePresentEvent extends BaseEvent {
     private boolean backupFileIsPresent;
 
     public BackupFilePresentEvent() {

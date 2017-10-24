@@ -122,6 +122,13 @@ public class AddressBookParser {
         }
     }
 
+    /**
+     * Parses user permission input for verification
+     *
+     * @param userInput full user input string
+     * @return permission based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public boolean parsePermission(String userInput) throws ParseException {
         final Matcher matcher = BASIC_PERMISSION_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -129,12 +136,12 @@ public class AddressBookParser {
         }
         final String permission = matcher.group("permission");
         switch(permission) {
-            case "yes": case "y":
-                return true;
-            case "no": case "n":
-                return false;
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        case "yes": case "y":
+            return true;
+        case "no": case "n":
+            return false;
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

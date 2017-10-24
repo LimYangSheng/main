@@ -17,15 +17,15 @@ public class RestoreBackupCommand extends PermissionCommand {
     public static final String MESSAGE_FAILURE = "Data has not been restored";
     public static final String MESSAGE_WARNING =
             "Restoring backup will result in the lost of current data. Do you still want to proceed? y/n";
-    public static final String MESSAGE_NO_BACKUP_FILE = "Unable to execute restore as there is no backup file available";
+    public static final String MESSAGE_NO_BACKUP_FILE =
+            "Unable to execute restore as there is no backup file available";
 
     @Override
     public CommandResult execute() throws CommandException {
-        if(backupFilePresent()) {
+        if (backupFilePresent()) {
             EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
             return new CommandResult(String.format(MESSAGE_WARNING));
-        }
-        else {
+        } else {
             return new CommandResult(String.format(MESSAGE_NO_BACKUP_FILE));
         }
     }
@@ -38,8 +38,7 @@ public class RestoreBackupCommand extends PermissionCommand {
             ReadOnlyAddressBook backupAddressBookData = event.getAddressBookData();
             model.resetData(backupAddressBookData);
             return new CommandResult(String.format(MESSAGE_SUCCESS));
-        }
-        else {
+        } else {
             return new CommandResult(String.format(MESSAGE_FAILURE));
         }
     }

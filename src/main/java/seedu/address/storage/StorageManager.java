@@ -136,10 +136,9 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleBackupFilePresentEvent(BackupFilePresentEvent event) {
         String backupAddressBookFilePath = createBackupAddressBookFilePath(addressBookStorage.getAddressBookFilePath());
         File f = new File(backupAddressBookFilePath);
-        if(f.exists()) {
+        if (f.exists()) {
             event.updateBackupFilePresenceStatus(true);
-        }
-        else {
+        } else {
             event.updateBackupFilePresenceStatus(false);
         }
     }

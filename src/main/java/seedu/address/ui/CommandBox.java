@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -105,15 +106,17 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandInputChanged() {
-        if(addressBookReplyFlag){
+        if (addressBookReplyFlag) {
             handlePermissionCommandInputChanged();
             addressBookReplyFlag = false;
-        }
-        else {
+        } else {
             handleCommonCommandInputChanged();
         }
     }
 
+    /**
+     * Executes the previous command according to the user's given permission.
+     */
     private void handlePermissionCommandInputChanged() {
         try {
             CommandResult commandResult = logic.executeAfterUserPermission(commandTextField.getText());
@@ -133,6 +136,9 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    /**
+     * Executes the common command.
+     */
     private void handleCommonCommandInputChanged() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
