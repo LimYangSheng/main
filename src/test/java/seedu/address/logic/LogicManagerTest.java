@@ -57,7 +57,8 @@ public class LogicManagerTest {
     @Test
     public void executeAfterUserPermission_validCommand_success() {
         String permission = "no";
-        assertCommandSuccess(RestoreBackupCommand.COMMAND_WORD, RestoreBackupCommand.MESSAGE_NO_BACKUP_FILE, model, "common");
+        assertCommandSuccess(RestoreBackupCommand.COMMAND_WORD,
+                RestoreBackupCommand.MESSAGE_NO_BACKUP_FILE, model, "common");
         assertCommandSuccess(permission, RestoreBackupCommand.MESSAGE_FAILURE, model, "permission");
         assertHistoryCorrect(permission, RestoreBackupCommand.COMMAND_WORD);
     }
@@ -73,7 +74,8 @@ public class LogicManagerTest {
      * Also confirms that {@code expectedModel} is as specified.
      * @see #assertCommandBehavior(Class, String, String, Model, String)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel, String commandType) {
+    private void assertCommandSuccess(String inputCommand, String expectedMessage,
+                                      Model expectedModel, String commandType) {
         assertCommandBehavior(null, inputCommand, expectedMessage, expectedModel, commandType);
     }
 
@@ -97,7 +99,8 @@ public class LogicManagerTest {
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
      * @see #assertCommandBehavior(Class, String, String, Model, String)
      */
-    private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage, String commandType) {
+    private void assertCommandFailure(String inputCommand, Class<?> expectedException,
+                                      String expectedMessage, String commandType) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel, commandType);
     }
@@ -110,15 +113,19 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                            String expectedMessage, Model expectedModel, String commandType) {
-        if(commandType.equals("common")) {
+        if (commandType.equals("common")) {
             executeCommonCommand(expectedException, inputCommand, expectedMessage, expectedModel);
-        }
-        else { //if commandType.equals("permission")
-            executePermissionCommandAfterUserPermission(expectedException, inputCommand, expectedMessage, expectedModel);
+        } else { //if commandType.equals("permission")
+            executePermissionCommandAfterUserPermission(expectedException, inputCommand,
+                    expectedMessage, expectedModel);
         }
     }
 
-    private void executePermissionCommandAfterUserPermission(Class<?> expectedException, String inputCommand, String expectedMessage, Model expectedModel) {
+    /**
+     * Executes the previous command after user enters permission and check for correct exception thrown and correct feedback returned.
+     */
+    private void executePermissionCommandAfterUserPermission(Class<?> expectedException, String inputCommand,
+                                                             String expectedMessage, Model expectedModel) {
         try {
             CommandResult result = logic.executeAfterUserPermission(inputCommand);
             assertEquals(expectedException, null);
@@ -130,7 +137,11 @@ public class LogicManagerTest {
         assertEquals(expectedModel, model);
     }
 
-    private void executeCommonCommand(Class<?> expectedException, String inputCommand, String expectedMessage, Model expectedModel) {
+    /**
+     * Executes the command and check for correct exception thrown and correct feedback returned.
+     */
+    private void executeCommonCommand(Class<?> expectedException, String inputCommand,
+                                      String expectedMessage, Model expectedModel) {
         try {
             CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);

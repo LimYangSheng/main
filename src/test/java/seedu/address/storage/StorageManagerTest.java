@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.storage.BackupDataEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;

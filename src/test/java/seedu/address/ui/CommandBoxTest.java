@@ -22,13 +22,13 @@ import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    @Rule
-    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
-
     private static final String COMMAND_THAT_SUCCEEDS_COMMON = ListCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
     private static final String COMMAND_THAT_SUCCEEDS_PERMISSION = RestoreBackupCommand.COMMAND_WORD;
     private static final String COMMAND_WITH_VALID_USER_PERMISSION = "no";
+
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
@@ -77,7 +77,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void commandBox_unsuccessfulCommand_forHandlePermissionCommandInputChanged_ParseException() {
+    public void commandBox_unsuccessfulCommand_forHandlePermissionCommandInputChanged_parseException() {
         assertBehaviorForSuccessfulPermissionCommand();
         EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
         assertBehaviorForFailedCommand();
