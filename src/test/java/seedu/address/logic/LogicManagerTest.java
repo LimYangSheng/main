@@ -122,7 +122,8 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the previous command after user enters permission and check for correct exception thrown and correct feedback returned.
+     * Executes the previous command after user enters permission
+     * and check for correct exception thrown and correct feedback returned.
      */
     private void executePermissionCommandAfterUserPermission(Class<?> expectedException, String inputCommand,
                                                              String expectedMessage, Model expectedModel) {

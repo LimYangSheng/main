@@ -77,7 +77,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void commandBox_unsuccessfulCommand_forHandlePermissionCommandInputChanged_parseException() {
+    public void commandBox_unsuccessfulCommand_forHandlePermissionCommandInputChangedParseException() {
         assertBehaviorForSuccessfulPermissionCommand();
         EventsCenter.getInstance().post(new RequestingUserPermissionEvent());
         assertBehaviorForFailedCommand();

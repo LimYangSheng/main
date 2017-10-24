@@ -60,7 +60,7 @@ public class RestoreBackupCommandTest {
     }
 
     @Test
-    public void execute_restoreBackup_without_backupFile() throws Exception {
+    public void execute_restoreBackup_withoutBackupFile() throws Exception {
         CommandResult result = restoreBackupCommand.execute();
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof BackupFilePresentEvent);
         assertEquals(result.feedbackToUser, restoreBackupCommand.MESSAGE_NO_BACKUP_FILE);
