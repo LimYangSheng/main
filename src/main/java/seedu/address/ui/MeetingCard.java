@@ -25,7 +25,9 @@ public class MeetingCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private FlowPane meetings;
+    private Label meetingName;
+    @FXML
+    private Label meetingTime;
 
     public MeetingCard(Meeting meeting, int displayedIndex) {
         super(FXML);
@@ -40,8 +42,8 @@ public class MeetingCard extends UiPart<Region> {
      */
     private void bindListeners(Meeting meeting) {
         name.textProperty().bind(Bindings.convert(meeting.nameProperty()));
-        Label tagLabel = new Label(meeting.value);
-        meetings.getChildren().add(tagLabel);
+        meetingName.textProperty().bind(Bindings.convert(meeting.meetingNameProperty()));
+        meetingTime.textProperty().bind(Bindings.convert(meeting.meetingTimeProperty()));
     }
 
 }

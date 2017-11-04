@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
 
 //@@author alexanderleegs
 /**
@@ -23,16 +24,22 @@ public class Meeting {
 
     public final LocalDateTime date;
     public final String value;
-    private Person person;
+    public final String meetingName;
+    private ReadOnlyPerson person;
     private ObjectProperty<Name> displayName;
+    private ObjectProperty<String> displayValue;
+    private ObjectProperty<String> displayMeetingName;
 
     /**
      * Validates given tag name.
      *
      * @throws IllegalValueException if the given tag name string is invalid.
      */
-    public Meeting(String time, Person person) throws IllegalValueException {
+    public Meeting(ReadOnlyPerson person, String meetingName, String time) throws IllegalValueException {
         setPerson(person);
+        this.displayName = new SimpleObjectProperty<>(person.getName());
+        this.meetingName = meetingName;
+        this.displayMeetingName = new SimpleObjectProperty<>(meetingName);
         requireNonNull(time);
         String trimmedTime = time.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -40,15 +47,18 @@ public class Meeting {
             LocalDateTime date = LocalDateTime.parse(trimmedTime, formatter);
             this.date = date;
             value = date.format(formatter);
+            this.displayValue = new SimpleObjectProperty<>(value);
         } catch (DateTimeParseException dtpe) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
     }
 
     /**
-     * Overloaded constructor to be used in edit command parser
+     * Overloaded constructor for creating meeting objects with no proper reference to their person object
      */
-    public Meeting(String time) throws IllegalValueException {
+    public Meeting(String meetingName, String time) throws IllegalValueException {
+        this.meetingName = meetingName;
+        this.displayMeetingName = new SimpleObjectProperty<>(meetingName);
         requireNonNull(time);
         String trimmedTime = time.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -56,6 +66,7 @@ public class Meeting {
             LocalDateTime date = LocalDateTime.parse(trimmedTime, formatter);
             this.date = date;
             value = date.format(formatter);
+            this.displayValue = new SimpleObjectProperty<>(value);
         } catch (DateTimeParseException dtpe) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
@@ -64,15 +75,15 @@ public class Meeting {
     /**
      * Set the person attributes of the meeting object.
      */
-    public void setPerson(Person person) {
+    public void setPerson(ReadOnlyPerson person) {
         this.person = person;
         this.displayName = new SimpleObjectProperty<>(person.getName());
     }
 
     /**
-     * Returns person of the meeting
+     * Returns ReadOnlyPerson of the meeting
      */
-    public Person getPerson() {
+    public ReadOnlyPerson getPerson() {
         return person;
     }
 
@@ -81,6 +92,20 @@ public class Meeting {
      */
     public ObjectProperty<Name> nameProperty() {
         return displayName;
+    }
+
+    /**
+     * Return name for use by UI
+     */
+    public ObjectProperty<String> meetingNameProperty() {
+        return displayMeetingName;
+    }
+
+    /**
+     * Return name for use by UI
+     */
+    public ObjectProperty<String> meetingTimeProperty() {
+        return displayValue;
     }
 
 

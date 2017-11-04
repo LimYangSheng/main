@@ -88,10 +88,10 @@ public class SampleDataUtil {
     /**
      * Returns a meeting set containing the list of meetings given.
      */
-    public static Set<Meeting> getMeetingSet(String... strings) throws IllegalValueException {
+    public static Set<Meeting> getMeetingSet(String meetingName, String... strings) throws IllegalValueException {
         HashSet<Meeting> meetings = new HashSet<>();
         for (String s : strings) {
-            meetings.add(new Meeting(s));
+            meetings.add(new Meeting(meetingName, s));
         }
 
         return meetings;
