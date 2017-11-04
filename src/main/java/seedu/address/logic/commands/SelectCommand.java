@@ -40,7 +40,6 @@ public class SelectCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
         personSelected.add(model.getFilteredPersonList().get(targetIndex.getZeroBased()));
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         model.updateFilteredMeetingList(new MeetingContainPersonPredicate(personSelected));
