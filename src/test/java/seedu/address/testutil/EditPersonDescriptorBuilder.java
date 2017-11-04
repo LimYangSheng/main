@@ -103,7 +103,7 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withMeetings(String... meetings) {
         try {
-            descriptor.setMeetings(ParserUtil.parseMeetings(Arrays.asList(meetings), descriptor.getName().get()));
+            descriptor.setMeetings(ParserUtil.parseMeetings(Arrays.asList(meetings)));
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("meetings are expected to be unique.");
         }

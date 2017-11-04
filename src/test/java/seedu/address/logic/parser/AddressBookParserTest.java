@@ -83,7 +83,7 @@ public class AddressBookParserTest {
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        descriptor.setMeetings(SampleDataUtil.getMeetingSetForEdit(PersonBuilder.DEFAULT_MEETINGS));
+        descriptor.setMeetings(SampleDataUtil.getMeetingSet(PersonBuilder.DEFAULT_MEETINGS));
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getPersonDetails(person));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

@@ -14,8 +14,6 @@ public class XmlAdaptedMeeting implements XmlAdaptedClass<Meeting> {
 
     @XmlElement
     private String meetingName;
-    @XmlElement
-    private String userName;
 
     /**
      * Constructs an XmlAdaptedMeeting.
@@ -30,7 +28,6 @@ public class XmlAdaptedMeeting implements XmlAdaptedClass<Meeting> {
      */
     public XmlAdaptedMeeting(Meeting source) {
         meetingName = source.value;
-        userName = source.getName().toString();
     }
 
     /**
@@ -39,7 +36,7 @@ public class XmlAdaptedMeeting implements XmlAdaptedClass<Meeting> {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Meeting toModelType() throws IllegalValueException {
-        return new Meeting(meetingName, new Name(userName));
+        return new Meeting(meetingName);
     }
 
 }

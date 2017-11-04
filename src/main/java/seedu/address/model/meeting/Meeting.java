@@ -10,6 +10,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 
 //@@author alexanderleegs
 /**
@@ -22,7 +23,7 @@ public class Meeting {
 
     public final LocalDateTime date;
     public final String value;
-    private Name name;
+    private Person person;
     private ObjectProperty<Name> displayName;
 
     /**
@@ -30,8 +31,8 @@ public class Meeting {
      *
      * @throws IllegalValueException if the given tag name string is invalid.
      */
-    public Meeting(String time, Name name) throws IllegalValueException {
-        setName(name);
+    public Meeting(String time, Person person) throws IllegalValueException {
+        setPerson(person);
         requireNonNull(time);
         String trimmedTime = time.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -61,18 +62,18 @@ public class Meeting {
     }
 
     /**
-     * Set the name attributes of the meeting object.
+     * Set the person attributes of the meeting object.
      */
-    public void setName(Name name) {
-        this.name = name;
-        this.displayName = new SimpleObjectProperty<>(name);
+    public void setPerson(Person person) {
+        this.person = person;
+        this.displayName = new SimpleObjectProperty<>(person.getName());
     }
 
     /**
-     * Returns name of the meeting
+     * Returns person of the meeting
      */
-    public Name getName() {
-        return name;
+    public Person getPerson() {
+        return person;
     }
 
     /**
@@ -83,11 +84,10 @@ public class Meeting {
     }
 
 
-
     @Override
     public boolean equals(Object other) {
         /* Only happens for testing as name attribute will be set for the main app*/
-        if (this.name == null && other instanceof Meeting && ((Meeting) other).name == null) {
+        if (this.person == null && other instanceof Meeting && ((Meeting) other).person == null) {
             return other == this // short circuit if same object
                     || (other instanceof Meeting // instanceof handles nulls
                     && this.date.equals(((Meeting) other).date)); //state check
@@ -96,7 +96,7 @@ public class Meeting {
         return other == this // short circuit if same object
                 || (other instanceof Meeting // instanceof handles nulls
                 && this.date.equals(((Meeting) other).date)
-                && this.name.toString().equals(((Meeting) other).name.toString())); // state check
+                && this.person.equals(((Meeting) other).person)); // state check
     }
 
     @Override
