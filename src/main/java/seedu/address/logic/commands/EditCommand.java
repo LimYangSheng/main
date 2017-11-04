@@ -50,8 +50,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]"
-            + "[" + PREFIX_MEETING + "MEETING]...\n"
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -84,20 +83,6 @@ public class EditCommand extends UndoableCommand {
         }
 
         ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
-
-        if (editPersonDescriptor.getName().isPresent()) {
-            if (editPersonDescriptor.getMeetings().isPresent()) {
-                editPersonDescriptor.setNameForMeetings(editPersonDescriptor.getName().get());
-            } else {
-                for (Meeting meeting : personToEdit.getMeetings()) {
-                    meeting.setName(editPersonDescriptor.getName().get());
-                }
-            }
-        } else {
-            if (editPersonDescriptor.getMeetings().isPresent()) {
-                editPersonDescriptor.setNameForMeetings(personToEdit.getName());
-            }
-        }
 
         Person editedPerson = new Person(personToEdit);
         try {
@@ -132,7 +117,7 @@ public class EditCommand extends UndoableCommand {
         Instant time = Instant.now();
         LastUpdated lastUpdated = new LastUpdated(time.toString());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        Set<Meeting> updatedMeetings = editPersonDescriptor.getMeetings().orElse(personToEdit.getMeetings());
+        Set<Meeting> updatedMeetings = personToEdit.getMeetings();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
                 updatedNote, updatedId, lastUpdated, updatedTags, updatedMeetings);
@@ -166,7 +151,6 @@ public class EditCommand extends UndoableCommand {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-        private Set<Meeting> meetings;
 
         public EditPersonDescriptor() {}
 
@@ -176,7 +160,6 @@ public class EditCommand extends UndoableCommand {
             this.email = toCopy.email;
             this.address = toCopy.address;
             this.tags = toCopy.tags;
-            this.meetings = toCopy.meetings;
         }
 
         /**
@@ -184,7 +167,7 @@ public class EditCommand extends UndoableCommand {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address,
-                    this.tags, this.meetings);
+                    this.tags);
         }
 
         public void setName(Name name) {
@@ -227,21 +210,6 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(tags);
         }
 
-        public void setMeetings(Set<Meeting> meetings) {
-            this.meetings = meetings;
-        }
-
-        public Optional<Set<Meeting>> getMeetings() {
-            return Optional.ofNullable(meetings);
-        }
-
-        public void setNameForMeetings(Name name) {
-            Set<Meeting> meetingList = getMeetings().get();
-            for (Meeting meeting : meetingList) {
-                meeting.setName(name);
-            }
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -261,8 +229,7 @@ public class EditCommand extends UndoableCommand {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags())
-                    && getMeetings().equals(e.getMeetings());
+                    && getTags().equals(e.getTags());
         }
     }
 }
