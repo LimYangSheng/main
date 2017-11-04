@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.Name;
 
 //@@author alexanderleegs
 /**
