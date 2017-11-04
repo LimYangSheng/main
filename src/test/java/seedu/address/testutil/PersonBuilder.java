@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -29,7 +30,6 @@ public class PersonBuilder {
     public static final String DEFAULT_ID = "";
     public static final String DEFAULT_LASTUPDATED = "2017-10-18T15:16:28.018Z";
     public static final String DEFAULT_TAGS = "friends";
-    public static final String DEFAULT_MEETINGS = "2017-12-12 10:00";
 
     private Person person;
 
@@ -44,11 +44,8 @@ public class PersonBuilder {
             LastUpdated defaultLastUpdated = new LastUpdated(DEFAULT_LASTUPDATED);
 
             Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-            Set<Meeting> defaultMeetings = SampleDataUtil.getMeetingSet(DEFAULT_MEETINGS);
-            for (Meeting meeting : defaultMeetings) {
-                meeting.setPerson(this.person);
-            }
-
+            Set<Meeting> defaultMeetings = new HashSet<>();
+            
             this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress,
                     defaultNote, defaultId, defaultLastUpdated, defaultTags, defaultMeetings);
         } catch (IllegalValueException ive) {
@@ -88,6 +85,7 @@ public class PersonBuilder {
     }
 
     /**
+<<<<<<< HEAD
      * Parses the {@code meetings} into a {@code Set<Meeting>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withMeetings(String ... meetings) {
@@ -103,6 +101,8 @@ public class PersonBuilder {
     }
 
     /**
+=======
+>>>>>>> alexanderleegs-remove_meeting_from_edit_add_commands
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
