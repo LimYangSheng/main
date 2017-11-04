@@ -94,14 +94,14 @@ public class Meeting {
     }
 
     /**
-     * Return name for use by UI
+     * Return meeting name for use by UI
      */
     public ObjectProperty<String> meetingNameProperty() {
         return displayMeetingName;
     }
 
     /**
-     * Return name for use by UI
+     * Return meeting time for use by UI
      */
     public ObjectProperty<String> meetingTimeProperty() {
         return displayValue;

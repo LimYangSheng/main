@@ -42,8 +42,16 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        Set<Meeting> meetingSet = new HashSet<Meeting>();
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        for (ReadOnlyPerson person : this.addressBook.getPersonList()) {
+            for (Meeting meeting : person.getMeetings()) {
+                meeting.setPerson(person);
+                meetingSet.add(meeting);
+            }
+        }
+        this.addressBook.setMeetings(meetingSet);
         filteredMeeting = new FilteredList<>(this.addressBook.getMeetingList());
     }
 
