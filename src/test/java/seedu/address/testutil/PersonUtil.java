@@ -34,9 +34,6 @@ public class PersonUtil {
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
-        person.getMeetings().stream().forEach(
-            s -> sb.append(PREFIX_MEETING + s.value + " ")
-        );
         return sb.toString();
     }
 }

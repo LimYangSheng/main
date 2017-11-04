@@ -29,7 +29,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ID = "";
     public static final String DEFAULT_LASTUPDATED = "2017-10-18T15:16:28.018Z";
     public static final String DEFAULT_TAGS = "friends";
-    public static final String DEFAULT_MEETINGS = "2017-12-12 10:00";
+    public static final String DEFAULT_MEETINGS = "2017-09-01 10:00";
 
     private Person person;
 
