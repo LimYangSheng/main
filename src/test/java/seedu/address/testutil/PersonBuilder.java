@@ -45,7 +45,7 @@ public class PersonBuilder {
 
             Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
             Set<Meeting> defaultMeetings = new HashSet<>();
-            
+
             this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress,
                     defaultNote, defaultId, defaultLastUpdated, defaultTags, defaultMeetings);
         } catch (IllegalValueException ive) {
@@ -85,24 +85,6 @@ public class PersonBuilder {
     }
 
     /**
-<<<<<<< HEAD
-     * Parses the {@code meetings} into a {@code Set<Meeting>} and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withMeetings(String ... meetings) {
-        try {
-            this.person.setMeetings(SampleDataUtil.getMeetingSet(meetings));
-            for (Meeting meeting : this.person.getMeetings()) {
-                meeting.setPerson(this.person);
-            }
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("meetings are expected to be unique.");
-        }
-        return this;
-    }
-
-    /**
-=======
->>>>>>> alexanderleegs-remove_meeting_from_edit_add_commands
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {

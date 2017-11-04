@@ -35,12 +35,12 @@
                   </HBox>
                   <Label fx:id="meetingName" text="\$second">
                      <VBox.margin>
-                        <Insets left="5.0" />
+                        <Insets />
                      </VBox.margin>
                   </Label>
                   <Label fx:id="meetingTime" text="\$third">
                      <VBox.margin>
-                        <Insets left="5.0" />
+                        <Insets />
                      </VBox.margin>
                   </Label>
                </children>

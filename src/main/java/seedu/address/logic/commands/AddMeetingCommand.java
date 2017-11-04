@@ -8,6 +8,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
@@ -62,7 +63,11 @@ public class AddMeetingCommand extends UndoableCommand {
 
         ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
 
-        newMeeting = new Meeting(personToEdit, meetingName, meetingTime);
+        try {
+            newMeeting = new Meeting(personToEdit, meetingName, meetingTime);
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
+        }
         Set<Meeting> oldMeetings = new HashSet<Meeting>(personToEdit.getMeetings());
         if (oldMeetings.contains(newMeeting)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
