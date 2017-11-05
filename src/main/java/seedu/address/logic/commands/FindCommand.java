@@ -58,7 +58,6 @@ public class FindCommand extends Command {
         } else {
             model.updateFilteredPersonList(finalPredicate.and(currentPredicate));
         }
-        
         model.updateFilteredMeetingList(new MeetingContainPersonPredicate(model.getFilteredPersonList()));
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
