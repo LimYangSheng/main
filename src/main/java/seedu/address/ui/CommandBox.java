@@ -101,6 +101,7 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.positionCaret(commandTextField.getText().length());
     }
 
+    //@@author LimYangSheng-unused
     /**
      * Handles the Enter button pressed event.
      */
@@ -136,6 +137,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    //@@author
     /**
      * Executes the common command.
      */
@@ -188,6 +190,7 @@ public class CommandBox extends UiPart<Region> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
+    //@@author LimYangSheng-unused
     /**
      * Handles the event when Address Book requires user's confirmation to proceed with a command.
      */
@@ -196,4 +199,5 @@ public class CommandBox extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         addressBookReplyFlag = true;
     }
+    //@@author
 }

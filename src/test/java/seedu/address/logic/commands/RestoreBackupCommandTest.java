@@ -66,6 +66,7 @@ public class RestoreBackupCommandTest {
         assertEquals(result.feedbackToUser, restoreBackupCommand.MESSAGE_NO_BACKUP_FILE);
     }
 
+    //@@author LimYangSheng-unused
     @Test
     public void executeAfterUserPermission_restoreBackup_successful() throws Exception {
         storageManager.saveAddressBook(getTypicalAddressBook(), backupFilePath);
@@ -88,4 +89,5 @@ public class RestoreBackupCommandTest {
         assertEquals(expectedAddressBook, retrieved);
     }
 
+    //@@author
 }

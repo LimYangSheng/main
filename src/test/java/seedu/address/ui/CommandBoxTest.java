@@ -68,6 +68,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForFailedCommand();
     }
 
+    //@@author LimYangSheng-unused
     @Test
     public void commandBox_successfulCommand_forHandlePermissionCommandInputChanged() {
         assertBehaviorForSuccessfulPermissionCommand();
@@ -83,6 +84,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForFailedCommand();
     }
 
+    //@@author
     @Test
     public void commandBox_handleKeyPress() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
@@ -161,6 +163,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 
+    //@@author LimYangSheng-unused
     /**
      * Runs a command that succeeds, then verifies that <br>
      *      - the text is cleared <br>
@@ -183,6 +186,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 
+    //@@author
     /**
      * Runs a valid user input following a Permission command, then verifies that <br>
      *      - the text is cleared <br>

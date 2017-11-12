@@ -48,6 +48,7 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
+    //@@author LimYangSheng-unused
     @Override
     public CommandResult executeAfterUserPermission(String permissionText) throws CommandException, ParseException {
         logger.info("----------------[USER INPUT][" + permissionText + "]");
@@ -62,6 +63,7 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
 
+    //@@author
     @Override
     public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return model.getFilteredPersonList();

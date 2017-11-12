@@ -2,6 +2,7 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
+//@@author LimYangSheng-unused
 /**
  * Indicates a request to accept user permission before execution of command
  */

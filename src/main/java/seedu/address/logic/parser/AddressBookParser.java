@@ -122,6 +122,7 @@ public class AddressBookParser {
         }
     }
 
+    //@@author LimYangSheng-unused
     /**
      * Parses user permission input for verification
      *
@@ -145,4 +146,5 @@ public class AddressBookParser {
         }
     }
 
+    //@@author
 }

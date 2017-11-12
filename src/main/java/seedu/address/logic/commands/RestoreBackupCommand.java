@@ -30,6 +30,7 @@ public class RestoreBackupCommand extends PermissionCommand {
         }
     }
 
+    //@@author LimYangSheng-unused
     @Override
     public CommandResult executeAfterUserPermission(boolean userPermission) throws CommandException {
         if (userPermission) {
@@ -42,6 +43,7 @@ public class RestoreBackupCommand extends PermissionCommand {
             return new CommandResult(String.format(MESSAGE_FAILURE));
         }
     }
+    //@@author
 
     /**
      * Checks if there is a backup file.

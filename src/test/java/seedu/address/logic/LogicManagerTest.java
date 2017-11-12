@@ -47,6 +47,7 @@ public class LogicManagerTest {
         assertHistoryCorrect(listCommand);
     }
 
+    //@@author LimYangSheng-unused
     @Test
     public void executeAfterUserPermission_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
@@ -63,6 +64,7 @@ public class LogicManagerTest {
         assertHistoryCorrect(permission, RestoreBackupCommand.COMMAND_WORD);
     }
 
+    //@@author
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
@@ -105,6 +107,7 @@ public class LogicManagerTest {
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel, commandType);
     }
 
+    //@@author LimYangSheng-unused
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
@@ -138,6 +141,7 @@ public class LogicManagerTest {
         assertEquals(expectedModel, model);
     }
 
+    //@@author
     /**
      * Executes the command and check for correct exception thrown and correct feedback returned.
      */

@@ -98,6 +98,7 @@ public class AddressBookParserTest {
                 FilterCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FilterCommand(new ContainsTagsPredicate(keywords)), command);
     }
+
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
@@ -179,6 +180,7 @@ public class AddressBookParserTest {
         parser.parseCommand("unknownCommand");
     }
 
+    //@@author LimYangSheng-unused
     @Test
     public void parsePermission_userAllows() throws Exception {
         assertTrue(parser.parsePermission("yes"));
@@ -205,4 +207,5 @@ public class AddressBookParserTest {
         parser.parsePermission("unknownCommand");
     }
 
+    //@@author
 }

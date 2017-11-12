@@ -19,6 +19,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    //@@author LimYangSheng-unused
     /**
      * Executes the command that requires a user's reply and returns the result.
      * @param permissionText The permission as entered by the user.
@@ -28,6 +29,7 @@ public interface Logic {
      */
     CommandResult executeAfterUserPermission(String permissionText) throws CommandException, ParseException;
 
+    //@@author
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
 
